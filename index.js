@@ -47,6 +47,19 @@ app.get('/api/courses/:id', (req, res) => {
     res.send(my_course);
 });
 
+app.delete('/api/courses/:id', (req, res) => {
+    //look up the course
+    //if not existing, return
+    const my_course = courses.find(course => course.id === parseInt(req.params.id));
+    if(!my_course) return res.status(404).send("not found");
+
+    //delete
+    const index = courses.indexOf(my_course);
+    courses.splice(index, 1);
+
+    res.send(my_course);
+});
+
 app.listen(3000, ()=>{
     console.log('mano servas veikia');
 })
